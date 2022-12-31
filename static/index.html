@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Control Panel</title>
+
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="https://kit.fontawesome.com/ad8035cb49.js" crossorigin="anonymous"></script>
+
+    <script src="js/vendor/canvasjs.mini.js"></script>
+    <script src="js/index.js" defer></script>
+</head>
+<body>
+
+<h1>AutoBoat</h1>
+
+<div id="temperatureChart" style="height: 370px; width:100%;"></div>
+<h2 id="noDevice">Device Disconnected</h2>
+
+<div id="admin" hidden>
+    <div class="keys" id="keys">
+        <button class="up arr"><i class="fa fa-arrow-up"></i></button>
+        <button class="left arr"><i class="fa fa-arrow-left"></i></button>
+        <button class="right arr"><i class="fa fa-arrow-right"></i></button>
+        <button class="down arr"><i class="fa fa-arrow-down"></i></button>
+    </div>
+
+    <a href="/">Switch to Viewer</a>
+</div>
+
+<a id="viewer" href="#admin" hidden>Switch to Admin</a>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+body{
+    background: black;
+    color: white;
+    font-family: sans-serif;
+}
+
+h1{
+    text-align: center;
+    margin: 1em;
+}
+
+.keys{
+    display: grid;
+    width: fit-content;
+    margin: 3em auto;
+    gap: 1em;
+    grid-auto-flow:dense;
+    grid-template-columns: auto;
+    justify-items: center;
+    align-items: center;
+}
+
+.arr{
+    border: none;
+    padding: 0.5em 0.75em;
+    font-size: 1.5rem;
+    border-collapse: collapse;
+    box-shadow: #bdf9f9 0 0 9px 1px;
+    color: white;
+    background: black;
+}
+
+.arr:active{
+    box-shadow: inset #bdf9f9 0 0 4px 0;
+}
+
+.up{
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+.down{
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.left{
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.right{
+    grid-column: 3/4;
+    grid-row: 2/3;
+}

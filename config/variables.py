@@ -23,7 +23,8 @@ def set_up():
         "protocol": os.getenv("PROTOCOL", "https://"),
         "port": os.getenv("PORT", 443),
         "debug": os.getenv("DEBUG", False),
-        "name": os.getenv("APP_NAME", "App")
+        "name": os.getenv("APP_NAME", "App"),
+        "boat_key": os.getenv("BOAT_KEY", "boat")
     }
 
     return config
