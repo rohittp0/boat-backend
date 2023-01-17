@@ -20,7 +20,13 @@ let lastKey = null;
 let lastOn = null;
 
 function updateTemperatureData(temp) {
-    temperatureData.push({x: temperatureData.length, y: temp});
+    temperatureData.push({y: temp});
+
+    if (temperatureData.length > 15)
+        temperatureData.shift();
+
+    temperatureData.map((data, index) => data.x = index);
+
     chart.options.data[0].dataPoints = temperatureData;
     chart.render();
 }
@@ -37,8 +43,7 @@ ws.onmessage = function (event) {
             ws.send(JSON.stringify({type: "info"}));
         else
             console.error("Unable to connect");
-    }
-    else if (data.type === 'device')
+    } else if (data.type === 'device')
         setDeviceState(data.status);
 }
 
@@ -47,7 +52,7 @@ ws.onclose = () => location.reload();
 const keys = ["Up", "Down", "Left", "Right"];
 
 function sendKey(key, on) {
-    if(!deviceOnline)
+    if (!deviceOnline)
         return;
 
     if (lastKey === key && lastOn === on)
@@ -71,28 +76,32 @@ keys.forEach(key => {
     key = key.toLowerCase();
     const button = document.getElementsByClassName(key)[0];
 
-    button.addEventListener("mousedown", () => sendKey(key, true), {passive: true});
-    button.addEventListener("mouseup", () => sendKey(key, false), {passive: true});
+    if (window.matchMedia("(any-hover: none)").matches) {
+        let state = false;
+        button.addEventListener("click", () => sendKey(key, state = !state), {passive: true});
+    } else {
+        button.addEventListener("mousedown", () => sendKey(key, true), {passive: true});
+        button.addEventListener("mouseup", () => sendKey(key, false), {passive: true});
+    }
 });
 
 document.addEventListener("keydown", (event) => {
-    const key = keys.find(k => event.key.endsWith(k));
-    if (key)
-        sendKey(key.toLowerCase(), true);
-},
+        const key = keys.find(k => event.key.endsWith(k));
+        if (key)
+            sendKey(key.toLowerCase(), true);
+    },
     {passive: true});
 
 document.addEventListener("keyup", (event) => {
-    const key = keys.find(k => event.key.endsWith(k));
-    if (key)
-        sendKey(key.toLowerCase(), false);
-},
+        const key = keys.find(k => event.key.endsWith(k));
+        if (key)
+            sendKey(key.toLowerCase(), false);
+    },
     {passive: true});
 
-
-if(clientType === "admin")
+if (clientType === "admin")
     document.getElementById("admin").hidden = false;
-else if(clientType === "viewer")
+else if (clientType === "viewer")
     document.getElementById("viewer").hidden = false;
 
 setDeviceState("disconnected");

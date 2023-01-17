@@ -67,7 +67,6 @@ class ConnectionManager:
             await connection.send_json(param)
 
     async def from_boat(self, data):
-        print(data)
         if data["type"] == "data":
             await self.broadcast(data)
 
@@ -80,6 +79,8 @@ class ConnectionManager:
 
         if client != ClientTypes.ADMIN:
             return
+
+        print(data)
 
         if data["type"] == "command":
             if not self.device_connection:
